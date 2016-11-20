@@ -7,7 +7,9 @@ a CloudFormation stack.
 Useful for monitoring the progress of a stack's creation, update, and
 delete.
 
-## Synopsis
+[![demo](https://alestic.com/img/blog/2016-11-aws-cloudformation-stack-status-play.png)](https://asciinema.org/a/arbohsp3hlseoqvvfs7b61be8?autoplay=1)
+
+## Examples
 
 Monitor all stack resource progress live (Interrupt with ^C):
 
