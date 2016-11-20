@@ -23,3 +23,8 @@ together:
 One time display of latest status for each stack resource:
 
     aws-cloudformation-stack-status --region $region --stack-name $stack
+
+## Requirements
+
+This script does require that you have already installed and
+configured the aws-cli.
