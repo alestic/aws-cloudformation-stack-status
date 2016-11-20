@@ -1,0 +1,34 @@
+#!/bin/bash
+#
+# aws-cloudformation-stack-status --region $region --watch --stack-name $stack
+#
+# See: https://github.com/alestic/aws-cloudformation-stack-status
+#
+region_opt=
+stack_names=
+watch=
+while [ $# -gt 0 ]; do
+  case $1 in
+    --region)     region_opt="--region $2";               shift 2 ;;
+    --stack-name) stack_names="$stack_names $2";          shift 2 ;;
+    --watch)      watch=1;                                shift ;;
+    --*)          echo "$0: Unrecognized option: $1" >&2; exit 1  ;;
+    *) break ;;
+  esac
+done
+set -- $stack_names $@
+
+if [ -n "$watch" ]; then
+  watch -t -n0.1 $0 $region_opt "$@"
+fi
+
+for stack_name; do
+  aws cloudformation describe-stack-events \
+    $region_opt \
+    --stack-name "$stack_name" \
+    --output text \
+    --query 'StackEvents[*].[ResourceType,LogicalResourceId,ResourceStatus,Timestamp]' |
+  sort -k4r,5 | 
+  perl -ane 'print if !$seen{$F[1]}++'
+done |
+  column -t
