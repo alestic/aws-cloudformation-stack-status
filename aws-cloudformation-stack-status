@@ -19,7 +19,7 @@ done
 set -- $stack_names $@
 
 if [ -n "$watch" ]; then
-  watch -t -n0.1 $0 $region_opt "$@"
+  watch -t -n1 $0 $region_opt "$@"
 fi
 
 for stack_name; do
@@ -27,8 +27,8 @@ for stack_name; do
     $region_opt \
     --stack-name "$stack_name" \
     --output text \
-    --query 'StackEvents[*].[ResourceType,LogicalResourceId,ResourceStatus,Timestamp]' |
-  sort -k4r,5 | 
+    --query 'StackEvents[*].[ResourceStatus,LogicalResourceId,ResourceType,Timestamp]' |
+  sort -k4r |
   perl -ane 'print if !$seen{$F[1]}++'
 done |
   column -t
