@@ -11,7 +11,7 @@ watch=
 while [ $# -gt 0 ]; do
   case $1 in
     --region)     region_opt="--region $2";               shift 2 ;;
-    --profile)    profile_opt="--profile $2";               shift 2 ;;
+    --profile)    profile_opt="--profile $2";             shift 2 ;;
     --stack-name) stack_names="$stack_names $2";          shift 2 ;;
     --watch)      watch=1;                                shift ;;
     --*)          echo "$0: Unrecognized option: $1" >&2; exit 1  ;;
