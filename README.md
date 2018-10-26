@@ -21,7 +21,7 @@ Monitor all stack resource progress live (Interrupt with Ctrl-C):
 
     aws-cloudformation-stack-status --watch --region $region --stack-name $stack --profile $profile
 
-The `--stack-name` and `--profile` arguments are optional, and multiple stacks can be monitored
+The --stack-name flag is optional, and multiple stacks can be monitored
 together:
 
     watch aws-cloudformation-stack-status --watch $webstack $dbstack $dnsstack
