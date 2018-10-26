@@ -19,7 +19,7 @@ done
 set -- $stack_names $@
 
 if [ -n "$watch" ]; then
-  watch -t -n1 $0 $region_opt "$@"
+  exec watch -t -n1 $0 $region_opt "$@"
 fi
 
 for stack_name; do
