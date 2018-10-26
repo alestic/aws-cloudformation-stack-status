@@ -30,6 +30,13 @@ One time display of latest status for each stack resource:
 
     aws-cloudformation-stack-status --region $region --stack-name $stack
 
+## Parameters
+
+* `--stack-name`: Optional.
+* `--watch`: Optional. This script will run the `watch` command to check the response from aws-cli every second
+* `--region`: Set the aws-cli region.  aws-cli will use the default region if set via environment variables or config file.
+* `--color`: Optional. Display output with terminal coloring similar to how it is displayed on the AWS Console Stack listing
+
 ## Requirements
 
 This script does require that you have already installed and
