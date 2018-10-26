@@ -6,6 +6,7 @@
 #
 region_opt=
 color_opt=
+profile_opt=
 stack_names=
 watch=
 red_font=
@@ -28,6 +29,7 @@ function decorate_text() {
 while [ $# -gt 0 ]; do
   case $1 in
     --region)     region_opt="--region $2";               shift 2 ;;
+    --profile)    profile_opt="--profile $2";             shift 2 ;;
     --stack-name) stack_names="$stack_names $2";          shift 2 ;;
     --watch)      watch=1;                                shift ;;
     --color)      decorate_text;color_opt="--color";      shift ;;
@@ -38,12 +40,13 @@ done
 set -- $stack_names $@
 
 if [ -n "$watch" ]; then
-  exec watch $color_opt -t -n1 $0 $color_opt $region_opt "$@"
+  exec watch $color_opt -t -n1 $0 $color_opt $region_opt $profile_opt "$@"
 fi
 
 for stack_name; do
   aws cloudformation describe-stack-events \
     $region_opt \
+    $profile_opt \
     --stack-name "$stack_name" \
     --output text \
     --query 'StackEvents[*].[ResourceStatus,LogicalResourceId,ResourceType,Timestamp]' |
